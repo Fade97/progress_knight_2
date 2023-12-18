@@ -93,8 +93,7 @@ function addMultipliers() {
     }
 }
 
-function getHeroXpGainMultipliers(job)
-{
+function getHeroXpGainMultipliers(job) {
     var baseMult = 1
 
     if (job instanceof Job)
@@ -146,7 +145,7 @@ function getHeroXpGainMultipliers(job)
 function setCustomEffects() {
     const bargaining = gameData.taskData["Bargaining"]
     bargaining.getEffect = function () {
-        const multiplier = 1 - getBaseLog(bargaining.isHero? 3 : 7, bargaining.level + 1) / 10
+        const multiplier = 1 - getBaseLog(bargaining.isHero ? 3 : 7, bargaining.level + 1) / 10
         if (multiplier < 0.1) return 0.1
         return multiplier
     }
@@ -180,7 +179,7 @@ function setCustomEffects() {
     }
 
     const timeWarping = gameData.taskData["Time Warping"]
-    timeWarping.getEffect = function() {
+    timeWarping.getEffect = function () {
         return 1 + getBaseLog(timeWarping.isHero ? 1.005 : 10, timeWarping.level + 1)
     }
 
@@ -190,7 +189,7 @@ function setCustomEffects() {
     }
 
     const unholyRecall = gameData.taskData["Cosmic Recollection"];
-    unholyRecall.getEffect = function() {
+    unholyRecall.getEffect = function () {
         return unholyRecall.level * (unholyRecall.isHero ? 0.065 : 0.00065);
     }
 
@@ -205,7 +204,7 @@ function setCustomEffects() {
     const faintHope = milestoneData["Faint Hope"]
     faintHope.getEffect = function () {
         var mult = 1
-        if (gameData.requirements["A New Hope"].isCompleted()) { 
+        if (gameData.requirements["A New Hope"].isCompleted()) {
             mult = softcap(1e308, 10000000, 0.01)
         }
         else if (gameData.requirements["Speed speed speed"].isCompleted()) {
@@ -329,10 +328,10 @@ function getEvilGain() {
 
     const evilControl = gameData.taskData["Evil Control"]
     const bloodMeditation = gameData.taskData["Blood Meditation"]
-    const absoluteWish = gameData.taskData ["Absolute Wish"]
-    const oblivionEmbodiment = gameData.taskData ["Void Embodiment"]
+    const absoluteWish = gameData.taskData["Absolute Wish"]
+    const oblivionEmbodiment = gameData.taskData["Void Embodiment"]
     const yingYang = gameData.taskData["Yin Yang"]
-    const inferno = gameData.requirements["Inferno"].isCompleted() ? 5 : 1    
+    const inferno = gameData.requirements["Inferno"].isCompleted() ? 5 : 1
     const theDevilInsideYou = gameData.requirements["The Devil inside you"].isCompleted() ? 1e15 : 1
     const stairWayToHell = getBindedItemEffect("Highway to hell")
     const evilBooster = (gameData.perks.evil_booster == 1) ? 1e50 : 1
@@ -355,8 +354,8 @@ function getEssenceGain() {
 
     return essenceControl.getEffect() * essenceCollector.getEffect() * transcendentMaster.getEffect()
         * faintHope.getEffect() * rise.getEffect() * getChallengeBonus("dance_with_the_devil")
-        * getAGiftFromGodEssenceGain() * darkMagician.getEffect() * getDarkMatterSkillEssence() 
-        * theNewGold * lifeIsValueable *  essenceMultGain()
+        * getAGiftFromGodEssenceGain() * darkMagician.getEffect() * getDarkMatterSkillEssence()
+        * theNewGold * lifeIsValueable * essenceMultGain()
 }
 
 function getDarkMatterGain() {
@@ -365,7 +364,7 @@ function getDarkMatterGain() {
     const darkMatterMining = gameData.requirements["Dark Matter Mining"].isCompleted() ? 3 : 1
     const darkMatterMillionaire = gameData.requirements["Dark Matter Millionaire"].isCompleted() ? 500 : 1
     const Desintegration = gameData.itemData['Desintegration'].getEffect()
-    const TheEndIsNear = getUnspentPerksDarkmatterGainBuff() 
+    const TheEndIsNear = getUnspentPerksDarkmatterGainBuff()
 
 
     return 1 * darkRuler.getEffect() * darkMatterHarvester * darkMatterMining * darkMatterMillionaire * getChallengeBonus("the_darkest_time") * getDarkMatterSkillDarkMater() * darkMatterMultGain() *
@@ -405,7 +404,7 @@ function getUnpausedGameSpeed() {
 
     const timeWarpingSpeed = boostWarping * timeWarping.getEffect() * temporalDimension.getEffect() * timeLoop.getEffect() * warpDrive * speedSpeedSpeed * timeIsAFlatCircle
 
-    const gameSpeed = baseGameSpeed * timeWarpingSpeed * getChallengeBonus("time_does_not_fly") * getGottaBeFastGain() * getDarkMatterSkillTimeWarping() 
+    const gameSpeed = baseGameSpeed * timeWarpingSpeed * getChallengeBonus("time_does_not_fly") * getGottaBeFastGain() * getDarkMatterSkillTimeWarping()
 
     if (gameData.active_challenge == "time_does_not_fly" || gameData.active_challenge == "the_darkest_time")
         return Math.pow(gameSpeed, 0.7)
@@ -499,7 +498,7 @@ function createGameObject(data, entity) {
     if ("income" in entity) { data[entity.name] = new Job(entity) }
     else if ("maxXp" in entity) { data[entity.name] = new Skill(entity) }
     else if ("tier" in entity) { data[entity.name] = new Milestone(entity) }
-    else {data[entity.name] = new Item(entity)}
+    else { data[entity.name] = new Item(entity) }
     data[entity.name].id = "row " + entity.name
 }
 
@@ -520,7 +519,7 @@ function getNet() {
 function getIncome() {
     if (gameData.active_challenge == "the_darkest_time")
         return 0
-    
+
     return gameData.currentJob.getIncome() * getDarkMatterSkillIncome()
 }
 
@@ -621,7 +620,7 @@ function autoBuy() {
                 }
             }
         }
-    }   
+    }
 }
 
 function increaseDays() {
@@ -654,12 +653,12 @@ function increaseRealtime() {
     else {
         gameData.boost_cooldown -= realDiff
 
-        if (gameData.boost_cooldown < 0) 
+        if (gameData.boost_cooldown < 0)
             gameData.boost_cooldown = 0
     }
 }
 
-function setTheme(index, reload=false) {
+function setTheme(index, reload = false) {
     const body = document.getElementById("body")
 
     body.classList.remove("dark")
@@ -673,7 +672,7 @@ function setTheme(index, reload=false) {
         // dark
         body.classList.add("dark")
     }
-    else if (index == 2){
+    else if (index == 2) {
         // colorblind Tritanopia
         body.classList.add("colorblind")
     }
@@ -762,7 +761,7 @@ function rebirthFour() {
     gameData.evil = 0
     gameData.dark_matter += getDarkMatterGain()
 
-    if (gameData.metaverse.challenge_altar == 0 && gameData.perks.save_challenges == 0)  {
+    if (gameData.metaverse.challenge_altar == 0 && gameData.perks.save_challenges == 0) {
         for (const challenge in gameData.challenges) {
             gameData.challenges[challenge] = 0
         }
@@ -803,7 +802,7 @@ function rebirthFive() {
     gameData.dark_matter_shop.a_gift_from_god = 0
     gameData.dark_matter_shop.gotta_be_fast = 0
     gameData.dark_matter_shop.life_coach = 0
-    
+
 
     if (gameData.perks.keep_dark_mater_skills == 0) {
         gameData.dark_matter_shop.speed_is_life = 0
@@ -845,7 +844,7 @@ function rebirthFive() {
     gameData.metaverse.evil_tran_gain = 0
     gameData.metaverse.essence_gain_modifier = 0
     gameData.metaverse.challenge_altar = 0
-    gameData.metaverse.dark_mater_gain_modifer = 0    
+    gameData.metaverse.dark_mater_gain_modifer = 0
 
     rebirthReset()
 
@@ -859,7 +858,7 @@ function rebirthFive() {
 
 function applyMilestones() {
     if (((gameData.requirements["Magic Eye"].isCompleted()) && (gameData.requirements["Rebirth note 2"].isCompleted())) ||
-        (gameData.requirements["Almighty Eye"].isCompleted())){
+        (gameData.requirements["Almighty Eye"].isCompleted())) {
         for (taskName in gameData.taskData) {
             const task = gameData.taskData[taskName]
             const effect = gameData.taskData["Cosmic Recollection"].getEffect()
@@ -934,7 +933,7 @@ function rebirthReset(set_tab_to_jobs = true) {
         task.xp = 0
         task.xpBigInt = BigInt(0)
         task.isHero = false
-        task.isFinished =false
+        task.isFinished = false
     }
 
     for (const itemName in gameData.itemData) {
@@ -1018,7 +1017,7 @@ function makeHeroes() {
         const prev = getPreviousTaskInCategory(taskname)
 
         if (prev != "" && (!gameData.taskData[prev].isHero || gameData.taskData[prev].level < 20))
-                continue
+            continue
 
         const req = gameData.requirements[taskname]
         let isNewHero = true
@@ -1103,7 +1102,7 @@ function assignMethods() {
         } else if (requirement.type == "perkpoint") {
             requirement = Object.assign(new PerkPointRequirement(requirement.querySelectors, requirement.requirements), requirement)
         }
-        
+
 
         const tempRequirement = tempData["requirements"][key]
         requirement.elements = tempRequirement.elements
@@ -1142,8 +1141,31 @@ function replaceSaveDict(dict, saveDict) {
     }
 }
 
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function saveGameData() {
-    localStorage.setItem("gameDataSave", JSON.stringify(gameData))
+    setCookie("gameDataSave", JSON.stringify(gameData), 999);
 }
 
 function peekSettingFromSave(setting) {
@@ -1164,7 +1186,7 @@ function peekSettingFromSave(setting) {
 
 function loadGameData() {
     try {
-        const gameDataSave = JSON.parse(localStorage.getItem("gameDataSave"))
+        const gameDataSave = JSON.parse(getCookie("gameDataSave"));
 
         if (gameDataSave !== null) {
             // When the game contains completedTimes, add 1 Dark Matter and remove the instance.
@@ -1176,7 +1198,7 @@ function loadGameData() {
 
             // remove milestoneData from gameData
             if ("milestoneData" in gameDataSave) {
-                delete gameDataSave["milestoneData"]                
+                delete gameDataSave["milestoneData"]
             }
 
             replaceSaveDict(gameData, gameDataSave)
@@ -1366,7 +1388,7 @@ function exportGameData() {
 function copyTextToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         const tooltip = document.getElementById("exportTooltip");
-        tooltip.innerHTML = "&nbsp;&nbsp;Save copied to clipboard!" ;
+        tooltip.innerHTML = "&nbsp;&nbsp;Save copied to clipboard!";
     }, err => {
         //console.error('Async: Could not copy text: ', err);
     })
@@ -1445,7 +1467,7 @@ setTabMetaverse("metaverseTab1")
 
 let ticking = false;
 
-var gameloop = setInterval(function() {
+var gameloop = setInterval(function () {
     if (ticking) return;
     ticking = true;
     update();
